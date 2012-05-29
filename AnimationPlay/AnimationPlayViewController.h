@@ -10,7 +10,9 @@
 #import "JPStupidButton.h"
 
 @interface AnimationPlayViewController : UIViewController {
-    IBOutlet JPStupidButton *stickyButton;
+    
 }
+
+@property (nonatomic,retain) IBOutletCollection(JPStupidButton) NSArray *menuButtons;
 
 @end

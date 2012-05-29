@@ -27,18 +27,24 @@
 #endif
 #endif
 
+typedef enum {
+    JPStupidButtonPopMode = 1,
+    JPStupidButtonStickMode = 2
+} JPStupidButtonMode;
+
 
 @interface JPStupidButton : UIButton {
-    int              buttonMode;
+@private    
     int              state;
     CALayer         *baseLayer;
     CAGradientLayer *gradient;
     CGRect           orig_bounds;
 }
 
-- (void)setMode:(int) mode;
+@property CGFloat cornerRadius;
 
-extern int const JPStupidButtonPopMode;
-extern int const JPStupidButtonStickMode;
+@property JPStupidButtonMode buttonMode;
+
+- (void)setupLayers;
 
 @end

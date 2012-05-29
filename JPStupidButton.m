@@ -15,71 +15,86 @@
 - (void)animateUp;
 - (void)animateStick;
 
-@property (nonatomic, JP_STRONG, getter = getDefaultImage, readonly) UIImage *defaultImage;
+@property (nonatomic, JP_STRONG, getter = getAndResetDefaultImage, readonly) UIImage *jpDefaultImage;
+@property (nonatomic, JP_STRONG, getter = getAndResetBackgroundColor, readonly) UIColor *jpBackgroundColor;
 
 @end
 
 
 @implementation JPStupidButton
 
-@synthesize defaultImage = defaultImage_;
+@synthesize jpDefaultImage      = jpDefaultImage_;
+@synthesize jpBackgroundColor   = jpBackgroundColor_;
+@synthesize cornerRadius;
+@synthesize buttonMode;
 
-int const JPStupidButtonPopMode = 1;
-int const JPStupidButtonStickMode = 2;
-
-- (UIImage *)getDefaultImage
+- (UIImage *)getAndResetDefaultImage
 {
-    if (defaultImage_ == nil ) {
+    if (jpDefaultImage_ == nil ) {
         UIImage *img = [self imageForState:UIControlStateNormal ];
         
         if( img!=nil ) {
             
-            defaultImage_ = img;
+            jpDefaultImage_ = img;
             
             [self setImage:nil forState:UIControlStateNormal];
         }
     }
     
-    return defaultImage_;
-
+    return jpDefaultImage_;
+    
 }
 
+- (UIColor *)getAndResetBackgroundColor 
+{
+    
+    if (jpBackgroundColor_ == nil) {
+        
+        UIColor *bg = super.backgroundColor;
+        
+        if( bg != nil ) {
+            [self setBackgroundColor:nil];
+            jpBackgroundColor_ = bg;
+        }
+        else {
+            jpBackgroundColor_ = [UIColor darkGrayColor]; // default color
+        }
+    }
+    return jpBackgroundColor_;
+}
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
-        // Initialization code
     }
     return self;
 }
 
-- (void)setMode:(int)mode
-{
-    buttonMode = mode;
-}
-
 - (id)initWithCoder:(NSCoder *)aDecoder {
     if ((self = [super initWithCoder:aDecoder])) {
-        [self setMode:JPStupidButtonPopMode];
+        
+        buttonMode = JPStupidButtonPopMode;
         state = 0;
-        [self setupLayers];
+        cornerRadius = 10.0;
+        
     }
     return self;
 }
 
 - (void)setupLayers {
     
-
-    CGRect base_bounds = CGRectMake(0, 0, self.layer.bounds.size.width, self.layer.bounds.size.height - self.layer.bounds.size.height * 0.10f);
+    CGRect base_bounds = 
+    CGRectMake(0, 0, self.layer.bounds.size.width, self.layer.bounds.size.height - self.layer.bounds.size.height * 0.10f);
     
-    CGPoint move_point = CGPointMake(0.0f, base_bounds.size.height * 0.10f);
+    CGPoint move_point = 
+    CGPointMake(0.0f, base_bounds.size.height * 0.10f);
     
     self.layer.masksToBounds = NO;
     
     baseLayer = [CALayer layer];
     
-    baseLayer.cornerRadius = 10.0;
+    baseLayer.cornerRadius = self.cornerRadius;
     baseLayer.shadowOffset = CGSizeMake(0.0f, 2.0f);
     baseLayer.shadowOpacity = 1.5f;
     baseLayer.shadowColor = [UIColor blackColor].CGColor;
@@ -89,16 +104,16 @@ int const JPStupidButtonStickMode = 2;
     
     CAShapeLayer *shape = [CALayer layer];
     shape.bounds = base_bounds;
-    shape.cornerRadius = 10.0;
+    shape.cornerRadius      = self.cornerRadius;
     shape.anchorPoint      = CGPointMake(0.0f, 0.0f);
     shape.position         = move_point;
-    shape.backgroundColor = [UIColor darkGrayColor].CGColor;
+    shape.backgroundColor = self.jpBackgroundColor.CGColor;
     
     gradient = [CAGradientLayer layer];
     gradient.anchorPoint      = CGPointMake(0.0f, 0.0f);
     gradient.position         = CGPointMake(0.0f, 0.0f);
     gradient.bounds           = base_bounds;
-    gradient.cornerRadius     = 10.0;
+    gradient.cornerRadius     = self.cornerRadius;
     gradient.borderColor      = [UIColor colorWithRed:0.72f
                                                 green:0.72f
                                                  blue:0.72f
@@ -114,13 +129,13 @@ int const JPStupidButtonStickMode = 2;
                                             blue:0.52f
                                            alpha:1.0].CGColor,
                        nil];
-
     
-    if( self.defaultImage != nil ) {
+    
+    if( self.jpDefaultImage != nil ) {
         
         CALayer *imageLayer = [CALayer layer];
         
-        CGImageRef imgRef = [self.defaultImage CGImage];
+        CGImageRef imgRef = [self.jpDefaultImage CGImage];
         
 #if __has_feature(objc_arc)
         imageLayer.contents = (__bridge id)imgRef;
@@ -134,15 +149,15 @@ int const JPStupidButtonStickMode = 2;
         [imageLayer setBounds:gradient.bounds];
         [imageLayer setAnchorPoint:CGPointMake(0.0, 0.0)];
         [imageLayer setPosition:CGPointMake(0.0, 0.0)];
-        imageLayer.cornerRadius = 10.0;
-
+        imageLayer.cornerRadius = self.cornerRadius;
+        
         [gradient addSublayer:imageLayer];
         
     }
     else {
-    
+        
         CATextLayer *textLayer = [CATextLayer layer];
-    //    [textLayer bind:@"string" toObject:self withKeyPath:@"titleLabel" options:nil];
+        //    [textLayer bind:@"string" toObject:self withKeyPath:@"titleLabel" options:nil];
         [textLayer setString:self.titleLabel.text]; 
         
         NSLog(@"String %@", self.titleLabel.text);
@@ -159,7 +174,7 @@ int const JPStupidButtonStickMode = 2;
         [textLayer setPosition:CGPointMake(0.0, 0.0)];
         
         [gradient addSublayer:textLayer];
-
+        
     }
     
     [baseLayer addSublayer:shape];
@@ -189,10 +204,10 @@ int const JPStupidButtonStickMode = 2;
 {
     switch(buttonMode)
     {
-        case 1:
+        case JPStupidButtonPopMode:
             [self animateUp];
             break;
-        case 2:
+        case JPStupidButtonStickMode:
             if (state == 1) {
                 [self animateStick];
             } else {
@@ -243,13 +258,13 @@ int const JPStupidButtonStickMode = 2;
 
 
 /*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
+ // Only override drawRect: if you perform custom drawing.
+ // An empty implementation adversely affects performance during animation.
+ - (void)drawRect:(CGRect)rect
+ {
+ // Drawing code
+ }
+ */
 
 - (void)dealloc
 {

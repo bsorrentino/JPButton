@@ -12,6 +12,8 @@
 
 @implementation AnimationPlayViewController
 
+@synthesize menuButtons;
+
 - (void)dealloc
 {
 #if !__has_feature(objc_arc)
@@ -20,6 +22,7 @@
 #endif
     
 }
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -36,9 +39,18 @@
 - (void)viewDidLoad
 {
     self.view.layer.backgroundColor = [UIColor grayColor].CGColor;
-    [stickyButton setMode:JPStupidButtonStickMode];
+ 
+    for (JPStupidButton *b in menuButtons) {
+        
+        b.cornerRadius = 1.0;
+        [b setupLayers];
+    }
     
     [super viewDidLoad];
+    
+    JPStupidButton *b = [menuButtons objectAtIndex:1];
+    b.buttonMode = JPStupidButtonStickMode;
+    
 }
 
 
