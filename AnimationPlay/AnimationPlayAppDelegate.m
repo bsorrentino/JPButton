@@ -67,9 +67,13 @@
 
 - (void)dealloc
 {
+#if !__has_feature(objc_arc)
+    
     [_window release];
     [_viewController release];
     [super dealloc];
+
+#endif    
 }
 
 @end

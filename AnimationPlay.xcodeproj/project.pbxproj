@@ -18,6 +18,7 @@
 		5C8C51391378889B00F87D84 /* AnimationPlayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C8C51371378889B00F87D84 /* AnimationPlayViewController.xib */; };
 		5CCE8AE81378F8F5001AED84 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CCE8AE71378F8F5001AED84 /* QuartzCore.framework */; };
 		5CCE8AEB13790371001AED84 /* JPStupidButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CCE8AEA13790371001AED84 /* JPStupidButton.m */; };
+		A0D9A4651574CB3F003AAED7 /* searchCompanyByName.png in Resources */ = {isa = PBXBuildFile; fileRef = A0D9A4641574CB3F003AAED7 /* searchCompanyByName.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		5CCE8AE71378F8F5001AED84 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		5CCE8AE913790371001AED84 /* JPStupidButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPStupidButton.h; sourceTree = "<group>"; };
 		5CCE8AEA13790371001AED84 /* JPStupidButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPStupidButton.m; sourceTree = "<group>"; };
+		A0D9A4641574CB3F003AAED7 /* searchCompanyByName.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = searchCompanyByName.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +104,7 @@
 		5C8C51261378889B00F87D84 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A0D9A4641574CB3F003AAED7 /* searchCompanyByName.png */,
 				5C8C51271378889B00F87D84 /* AnimationPlay-Info.plist */,
 				5C8C51281378889B00F87D84 /* InfoPlist.strings */,
 				5C8C512B1378889B00F87D84 /* AnimationPlay-Prefix.pch */,
@@ -163,6 +166,7 @@
 				5C8C512A1378889B00F87D84 /* InfoPlist.strings in Resources */,
 				5C8C51331378889B00F87D84 /* MainWindow.xib in Resources */,
 				5C8C51391378889B00F87D84 /* AnimationPlayViewController.xib in Resources */,
+				A0D9A4651574CB3F003AAED7 /* searchCompanyByName.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -246,10 +250,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_OBJCPP_ARC_ABI = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AnimationPlay/AnimationPlay-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "AnimationPlay/AnimationPlay-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -260,9 +267,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_OBJCPP_ARC_ABI = YES;
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AnimationPlay/AnimationPlay-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "AnimationPlay/AnimationPlay-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VALIDATE_PRODUCT = YES;
