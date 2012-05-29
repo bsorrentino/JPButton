@@ -17,7 +17,7 @@
 		5C8C51361378889B00F87D84 /* AnimationPlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C8C51351378889B00F87D84 /* AnimationPlayViewController.m */; };
 		5C8C51391378889B00F87D84 /* AnimationPlayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C8C51371378889B00F87D84 /* AnimationPlayViewController.xib */; };
 		5CCE8AE81378F8F5001AED84 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CCE8AE71378F8F5001AED84 /* QuartzCore.framework */; };
-		5CCE8AEB13790371001AED84 /* JPStupidButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CCE8AEA13790371001AED84 /* JPStupidButton.m */; };
+		A0188AF81575201700629809 /* JPStupidButton.m in Sources */ = {isa = PBXBuildFile; fileRef = A0188AF71575201700629809 /* JPStupidButton.m */; };
 		A0D9A4651574CB3F003AAED7 /* searchCompanyByName.png in Resources */ = {isa = PBXBuildFile; fileRef = A0D9A4641574CB3F003AAED7 /* searchCompanyByName.png */; };
 /* End PBXBuildFile section */
 
@@ -37,8 +37,8 @@
 		5C8C51351378889B00F87D84 /* AnimationPlayViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AnimationPlayViewController.m; sourceTree = "<group>"; };
 		5C8C51381378889B00F87D84 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/AnimationPlayViewController.xib; sourceTree = "<group>"; };
 		5CCE8AE71378F8F5001AED84 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		5CCE8AE913790371001AED84 /* JPStupidButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPStupidButton.h; sourceTree = "<group>"; };
-		5CCE8AEA13790371001AED84 /* JPStupidButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPStupidButton.m; sourceTree = "<group>"; };
+		A0188AF61575201700629809 /* JPStupidButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPStupidButton.h; sourceTree = "<group>"; };
+		A0188AF71575201700629809 /* JPStupidButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPStupidButton.m; sourceTree = "<group>"; };
 		A0D9A4641574CB3F003AAED7 /* searchCompanyByName.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = searchCompanyByName.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -60,6 +60,7 @@
 		5C8C51101378889B00F87D84 = {
 			isa = PBXGroup;
 			children = (
+				A0188AF515751FF600629809 /* Classes */,
 				5C8C51251378889B00F87D84 /* AnimationPlay */,
 				5C8C511E1378889B00F87D84 /* Frameworks */,
 				5C8C511C1378889B00F87D84 /* Products */,
@@ -95,8 +96,6 @@
 				5C8C51351378889B00F87D84 /* AnimationPlayViewController.m */,
 				5C8C51371378889B00F87D84 /* AnimationPlayViewController.xib */,
 				5C8C51261378889B00F87D84 /* Supporting Files */,
-				5CCE8AE913790371001AED84 /* JPStupidButton.h */,
-				5CCE8AEA13790371001AED84 /* JPStupidButton.m */,
 			);
 			path = AnimationPlay;
 			sourceTree = "<group>";
@@ -111,6 +110,15 @@
 				5C8C512C1378889B00F87D84 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A0188AF515751FF600629809 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				A0188AF61575201700629809 /* JPStupidButton.h */,
+				A0188AF71575201700629809 /* JPStupidButton.m */,
+			);
+			name = Classes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -139,6 +147,7 @@
 		5C8C51121378889B00F87D84 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastUpgradeCheck = 0420;
 				ORGANIZATIONNAME = "James Pozdena";
 			};
 			buildConfigurationList = 5C8C51151378889B00F87D84 /* Build configuration list for PBXProject "AnimationPlay" */;
@@ -180,7 +189,7 @@
 				5C8C512D1378889B00F87D84 /* main.m in Sources */,
 				5C8C51301378889B00F87D84 /* AnimationPlayAppDelegate.m in Sources */,
 				5C8C51361378889B00F87D84 /* AnimationPlayViewController.m in Sources */,
-				5CCE8AEB13790371001AED84 /* JPStupidButton.m in Sources */,
+				A0188AF81575201700629809 /* JPStupidButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
