@@ -32,6 +32,11 @@ typedef enum {
     JPStupidButtonStickMode = 2
 } JPStupidButtonMode;
 
+typedef enum {
+    JPStupidButtonTicknessThin,
+    JPStupidButtonTicknessDouble
+} JPStupidButtonTickness;
+
 
 @interface JPStupidButton : UIButton {
 @private    
@@ -41,7 +46,8 @@ typedef enum {
     CGRect           orig_bounds;
 }
 
-@property CGFloat cornerRadius;
+@property CGFloat cornerRadius; // default 10.0f
+@property JPStupidButtonTickness tickness;
 
 @property JPStupidButtonMode buttonMode;
 

@@ -14,6 +14,9 @@
 - (void)animateDown;
 - (void)animateUp;
 - (void)animateStick;
+- (CGFloat)ticknessAdjustement;
+- (CGFloat)ticknessAdjustementForStick;
+- (CGFloat)ticknessAdjustementForPop;
 
 @property (nonatomic, JP_STRONG, getter = getAndResetDefaultImage, readonly) UIImage *jpDefaultImage;
 @property (nonatomic, JP_STRONG, getter = getAndResetBackgroundColor, readonly) UIColor *jpBackgroundColor;
@@ -27,6 +30,61 @@
 @synthesize jpBackgroundColor   = jpBackgroundColor_;
 @synthesize cornerRadius;
 @synthesize buttonMode;
+
+@synthesize tickness;
+
+- (CGFloat)ticknessAdjustement {
+
+    CGFloat v ;
+    switch (self.tickness) {
+        case JPStupidButtonTicknessDouble:
+            v = 0.10f;
+            break;
+        case JPStupidButtonTicknessThin:
+            v = 0.15f;
+            break;
+    }
+    CGFloat result = (self.layer.bounds.size.height * v );
+    
+    NSLog(@"ticknessAdjustement=[%f]", result);
+    
+    return result;
+}
+- (CGFloat)ticknessAdjustementForStick {
+    CGFloat result = [self ticknessAdjustementForPop];
+    
+    switch (self.tickness) {
+        case JPStupidButtonTicknessDouble:
+            result -= (result *0.60f);
+            break;
+        case JPStupidButtonTicknessThin:
+            result -= (result*0.80f);            
+            
+    }
+    
+    NSLog(@"ticknessAdjustementForStick=[%f]", result);
+    
+    return result;
+}
+
+- (CGFloat)ticknessAdjustementForPop {
+    
+    CGFloat v ;
+    switch (self.tickness) {
+        case JPStupidButtonTicknessDouble:
+            v = 0.08f;
+            break;
+        case JPStupidButtonTicknessThin:
+            v = 0.04f;
+            break;
+            
+    }
+    CGFloat result = (self.layer.bounds.size.height * v );
+    
+    NSLog(@"ticknessAdjustementForPop=[%f]", result);
+    
+    return result;
+}
 
 - (UIImage *)getAndResetDefaultImage
 {
@@ -77,6 +135,7 @@
         buttonMode = JPStupidButtonPopMode;
         state = 0;
         cornerRadius = 10.0;
+        tickness = JPStupidButtonTicknessThin;
         
     }
     return self;
@@ -84,11 +143,20 @@
 
 - (void)setupLayers {
     
+    if( baseLayer != nil ) {
+        NSLog(@"layers already initialized!");
+        //[NSException raise:NSInternalInconsistencyException format:@"layers already initialized!"];
+
+    }
+    CGFloat base_bound_f = 0.10f;
+    CGFloat move_point_f = 0.10f;
+    
     CGRect base_bounds = 
-    CGRectMake(0, 0, self.layer.bounds.size.width, self.layer.bounds.size.height - self.layer.bounds.size.height * 0.10f);
+        CGRectMake(0, 0, self.layer.bounds.size.width, self.layer.bounds.size.height - self.layer.bounds.size.height * base_bound_f);
     
     CGPoint move_point = 
-    CGPointMake(0.0f, base_bounds.size.height * 0.10f);
+        CGPointMake(0.0f, base_bounds.size.height * move_point_f);
+    
     
     self.layer.masksToBounds = NO;
     
@@ -103,10 +171,10 @@
     baseLayer.position    = move_point;
     
     CAShapeLayer *shape = [CALayer layer];
-    shape.bounds = base_bounds;
+    shape.bounds            =  CGRectMake(0, 0, self.layer.bounds.size.width, self.layer.bounds.size.height - [self ticknessAdjustement]);
     shape.cornerRadius      = self.cornerRadius;
-    shape.anchorPoint      = CGPointMake(0.0f, 0.0f);
-    shape.position         = move_point;
+    shape.anchorPoint       = CGPointMake(0.0f, 0.0f);
+    shape.position          = move_point;
     shape.backgroundColor = self.jpBackgroundColor.CGColor;
     
     gradient = [CAGradientLayer layer];
@@ -232,7 +300,7 @@
                                             blue:0.52f
                                            alpha:1.0].CGColor,
                        nil];
-    gradient.position         = CGPointMake(0.0f, self.layer.bounds.size.height * 0.10f);
+    gradient.position         = CGPointMake(0.0f, [self ticknessAdjustementForPop]  );
 }
 
 - (void)animateUp
@@ -252,7 +320,7 @@
 
 - (void)animateStick
 {
-    gradient.position         = CGPointMake(0.0f, self.layer.bounds.size.height * 0.07f);
+    gradient.position         = CGPointMake(0.0f, [self ticknessAdjustementForStick]);
 }
 
 

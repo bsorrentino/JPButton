@@ -42,14 +42,21 @@
  
     for (JPStupidButton *b in menuButtons) {
         
-        b.cornerRadius = 1.0;
+        b.cornerRadius = 2.5;
+        b.tickness = JPStupidButtonTicknessDouble;
         [b setupLayers];
     }
     
     [super viewDidLoad];
     
-    JPStupidButton *b = [menuButtons objectAtIndex:1];
-    b.buttonMode = JPStupidButtonStickMode;
+    {
+        JPStupidButton *b = [menuButtons objectAtIndex:0];
+        b.buttonMode = JPStupidButtonStickMode;
+    }
+    {
+        JPStupidButton *b = [menuButtons objectAtIndex:1];
+        b.buttonMode = JPStupidButtonStickMode;
+    }
     
 }
 
