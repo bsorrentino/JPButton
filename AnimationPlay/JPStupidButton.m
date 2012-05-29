@@ -15,13 +15,35 @@
 - (void)animateUp;
 - (void)animateStick;
 
+@property (nonatomic, JP_STRONG, getter = getDefaultImage, readonly) UIImage *defaultImage;
+
 @end
 
 
 @implementation JPStupidButton
 
+@synthesize defaultImage = defaultImage_;
+
 int const JPStupidButtonPopMode = 1;
 int const JPStupidButtonStickMode = 2;
+
+- (UIImage *)getDefaultImage
+{
+    if (defaultImage_ == nil ) {
+        UIImage *img = [self imageForState:UIControlStateNormal ];
+        
+        if( img!=nil ) {
+            
+            defaultImage_ = img;
+            
+            [self setImage:nil forState:UIControlStateNormal];
+        }
+    }
+    
+    return defaultImage_;
+
+}
+
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -48,6 +70,7 @@ int const JPStupidButtonStickMode = 2;
 
 - (void)setupLayers {
     
+
     CGRect base_bounds = CGRectMake(0, 0, self.layer.bounds.size.width, self.layer.bounds.size.height - self.layer.bounds.size.height * 0.10f);
     
     CGPoint move_point = CGPointMake(0.0f, base_bounds.size.height * 0.10f);
@@ -91,29 +114,61 @@ int const JPStupidButtonStickMode = 2;
                                             blue:0.52f
                                            alpha:1.0].CGColor,
                        nil];
+
     
-    CATextLayer *textLayer = [CATextLayer layer];
-//    [textLayer bind:@"string" toObject:self withKeyPath:@"titleLabel" options:nil];
-    [textLayer setString:self.titleLabel.text]; 
+    if( self.defaultImage != nil ) {
+        
+        CALayer *imageLayer = [CALayer layer];
+        
+        CGImageRef imgRef = [self.defaultImage CGImage];
+        
+#if __has_feature(objc_arc)
+        imageLayer.contents = (__bridge id)imgRef;
+#else
+        imageLayer.contents = (id)imgRef;
+#endif        
+        imageLayer.contentsGravity = @"center";
+        imageLayer.contentsScale = 1.2;
+        
+        [imageLayer setZPosition:-1.0 ];
+        [imageLayer setBounds:gradient.bounds];
+        [imageLayer setAnchorPoint:CGPointMake(0.0, 0.0)];
+        [imageLayer setPosition:CGPointMake(0.0, 0.0)];
+        imageLayer.cornerRadius = 10.0;
+
+        [gradient addSublayer:imageLayer];
+        
+    }
+    else {
     
-    NSLog(@"String %@", self.titleLabel.text);
-    
-    [textLayer setFont:@"Menlo"];
-    [textLayer setFontSize:15.0f];
-    [textLayer setForegroundColor:[UIColor darkGrayColor].CGColor];
-    [textLayer setShadowColor:[UIColor lightGrayColor].CGColor];
-    [textLayer setShadowOpacity:9.0f];
-    [textLayer setShadowRadius:.5];
-    [textLayer setShadowOffset:CGSizeMake(1.0, 1.0)];
-    [textLayer setBounds:gradient.bounds];
-    [textLayer setAnchorPoint:CGPointMake(-0.1, -0.1)];
-    [textLayer setPosition:CGPointMake(0.0, 0.0)];
-    
-    [gradient addSublayer:textLayer];
+        CATextLayer *textLayer = [CATextLayer layer];
+    //    [textLayer bind:@"string" toObject:self withKeyPath:@"titleLabel" options:nil];
+        [textLayer setString:self.titleLabel.text]; 
+        
+        NSLog(@"String %@", self.titleLabel.text);
+        
+        [textLayer setFont:@"Menlo"];
+        [textLayer setFontSize:15.0f];
+        [textLayer setForegroundColor:[UIColor darkGrayColor].CGColor];
+        [textLayer setShadowColor:[UIColor lightGrayColor].CGColor];
+        [textLayer setShadowOpacity:9.0f];
+        [textLayer setShadowRadius:.5];
+        [textLayer setShadowOffset:CGSizeMake(1.0, 1.0)];
+        [textLayer setBounds:gradient.bounds];
+        [textLayer setAnchorPoint:CGPointMake(-0.1, -0.1)];
+        [textLayer setPosition:CGPointMake(0.0, 0.0)];
+        
+        [gradient addSublayer:textLayer];
+
+    }
     
     [baseLayer addSublayer:shape];
+    
     [baseLayer addSublayer:gradient];
+    
     [self.layer addSublayer:baseLayer];
+    
+    
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -198,7 +253,9 @@ int const JPStupidButtonStickMode = 2;
 
 - (void)dealloc
 {
+#if !__has_feature(objc_arc)
     [super dealloc];
+#endif    
 }
 
 @end
