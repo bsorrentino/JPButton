@@ -14,6 +14,13 @@
 
 @synthesize menuButtons;
 
+
+- (IBAction)button0:(id)sender 
+{
+    NSLog(@"button0 tapped! isSelected [%d]", ((JPStupidButton *)sender).isSelected );
+    
+}
+
 - (void)dealloc
 {
 #if !__has_feature(objc_arc)

@@ -15,4 +15,6 @@
 
 @property (nonatomic,retain) IBOutletCollection(JPStupidButton) NSArray *menuButtons;
 
+- (IBAction)button0:(id)sender;
+
 @end

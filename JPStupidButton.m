@@ -30,8 +30,15 @@
 @synthesize jpBackgroundColor   = jpBackgroundColor_;
 @synthesize cornerRadius;
 @synthesize buttonMode;
+@synthesize isSelected;
 
 @synthesize tickness;
+
+- (BOOL)isSelected
+{
+    return (state == 1);
+    
+}
 
 - (CGFloat)ticknessAdjustement {
 
@@ -265,7 +272,10 @@
             state = 0;
             break;
     }
-    [self animateDown];    
+    [self animateDown];  
+
+    [super touchesBegan:touches withEvent:event];
+
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
@@ -285,6 +295,7 @@
         default:
             break;
     }
+    [super touchesEnded:touches withEvent:event];
     
 }
 
