@@ -8,7 +8,7 @@
 
 #import "JPStupidButton.h"
 
-@interface JPStupidButton()
+@interface JPStupidButton( /*implementation*/)
 
 - (void)setupLayers;
 - (void)animateDown;
@@ -17,6 +17,7 @@
 - (CGFloat)ticknessAdjustement;
 - (CGFloat)ticknessAdjustementForStick;
 - (CGFloat)ticknessAdjustementForPop;
+- (void)initialize;
 
 @property (nonatomic, JP_STRONG, getter = getAndResetDefaultImage, readonly) UIImage *jpDefaultImage;
 @property (nonatomic, JP_STRONG, getter = getAndResetBackgroundColor, readonly) UIColor *jpBackgroundColor;
@@ -128,22 +129,27 @@
     return jpBackgroundColor_;
 }
 
+- (void)initialize
+{
+    buttonMode = JPStupidButtonPopMode;
+    state = 0;
+    cornerRadius = 10.0;
+    tickness = JPStupidButtonTicknessThin;
+    
+}
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
+        [self initialize];
     }
     return self;
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
     if ((self = [super initWithCoder:aDecoder])) {
-        
-        buttonMode = JPStupidButtonPopMode;
-        state = 0;
-        cornerRadius = 10.0;
-        tickness = JPStupidButtonTicknessThin;
-        
+        [self initialize];
     }
     return self;
 }
@@ -159,7 +165,9 @@
     CGFloat move_point_f = 0.10f;
     
     CGRect base_bounds = 
-        CGRectMake(0, 0, self.layer.bounds.size.width, self.layer.bounds.size.height - self.layer.bounds.size.height * base_bound_f);
+        CGRectMake(0, 0, 
+                   self.layer.bounds.size.width, 
+                   self.layer.bounds.size.height - self.layer.bounds.size.height * base_bound_f);
     
     CGPoint move_point = 
         CGPointMake(0.0f, base_bounds.size.height * move_point_f);
@@ -178,7 +186,9 @@
     baseLayer.position    = move_point;
     
     CAShapeLayer *shape = [CALayer layer];
-    shape.bounds            =  CGRectMake(0, 0, self.layer.bounds.size.width, self.layer.bounds.size.height - [self ticknessAdjustement]);
+    shape.bounds            =  CGRectMake(0, 0, 
+                                          self.layer.bounds.size.width, 
+                                          self.layer.bounds.size.height - [self ticknessAdjustement]);
     shape.cornerRadius      = self.cornerRadius;
     shape.anchorPoint       = CGPointMake(0.0f, 0.0f);
     shape.position          = move_point;
@@ -229,18 +239,26 @@
         [gradient addSublayer:imageLayer];
         
     }
-    else {
+    
+    if( self.titleLabel.text != nil ) {
+        
+        UIFont *titleFont = self.titleLabel.font;
+        CGFloat titleFontSize = titleFont.pointSize;
+        
+        NSString *title = [self titleForState:UIControlStateNormal];
+        UIColor *titleColor = [self titleColorForState:UIControlStateNormal];
+        UIColor *titleShadowColor = [self titleShadowColorForState:UIControlStateNormal];
         
         CATextLayer *textLayer = [CATextLayer layer];
         //    [textLayer bind:@"string" toObject:self withKeyPath:@"titleLabel" options:nil];
-        [textLayer setString:self.titleLabel.text]; 
+        [textLayer setString:title]; 
         
-        NSLog(@"String %@", self.titleLabel.text);
+        NSLog(@"String %@ font.name=[%@]", title, titleFont.fontName);
         
-        [textLayer setFont:@"Menlo"];
-        [textLayer setFontSize:15.0f];
-        [textLayer setForegroundColor:[UIColor darkGrayColor].CGColor];
-        [textLayer setShadowColor:[UIColor lightGrayColor].CGColor];
+        [textLayer setFont:(__bridge CFTypeRef)titleFont.fontName];
+        [textLayer setFontSize:titleFontSize];
+        [textLayer setForegroundColor:titleColor.CGColor];
+        [textLayer setShadowColor:titleShadowColor.CGColor];
         [textLayer setShadowOpacity:9.0f];
         [textLayer setShadowRadius:.5];
         [textLayer setShadowOffset:CGSizeMake(1.0, 1.0)];

@@ -18,7 +18,7 @@
 		5C8C51391378889B00F87D84 /* AnimationPlayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C8C51371378889B00F87D84 /* AnimationPlayViewController.xib */; };
 		5CCE8AE81378F8F5001AED84 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CCE8AE71378F8F5001AED84 /* QuartzCore.framework */; };
 		A0188AF81575201700629809 /* JPStupidButton.m in Sources */ = {isa = PBXBuildFile; fileRef = A0188AF71575201700629809 /* JPStupidButton.m */; };
-		A0D9A4651574CB3F003AAED7 /* searchCompanyByName.png in Resources */ = {isa = PBXBuildFile; fileRef = A0D9A4641574CB3F003AAED7 /* searchCompanyByName.png */; };
+		A06A200E1591C00A00F1C1F5 /* search128x128.png in Resources */ = {isa = PBXBuildFile; fileRef = A06A200D1591C00A00F1C1F5 /* search128x128.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,7 +39,7 @@
 		5CCE8AE71378F8F5001AED84 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		A0188AF61575201700629809 /* JPStupidButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPStupidButton.h; sourceTree = "<group>"; };
 		A0188AF71575201700629809 /* JPStupidButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPStupidButton.m; sourceTree = "<group>"; };
-		A0D9A4641574CB3F003AAED7 /* searchCompanyByName.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = searchCompanyByName.png; sourceTree = "<group>"; };
+		A06A200D1591C00A00F1C1F5 /* search128x128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search128x128.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,7 +103,7 @@
 		5C8C51261378889B00F87D84 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				A0D9A4641574CB3F003AAED7 /* searchCompanyByName.png */,
+				A06A200D1591C00A00F1C1F5 /* search128x128.png */,
 				5C8C51271378889B00F87D84 /* AnimationPlay-Info.plist */,
 				5C8C51281378889B00F87D84 /* InfoPlist.strings */,
 				5C8C512B1378889B00F87D84 /* AnimationPlay-Prefix.pch */,
@@ -175,7 +175,7 @@
 				5C8C512A1378889B00F87D84 /* InfoPlist.strings in Resources */,
 				5C8C51331378889B00F87D84 /* MainWindow.xib in Resources */,
 				5C8C51391378889B00F87D84 /* AnimationPlayViewController.xib in Resources */,
-				A0D9A4651574CB3F003AAED7 /* searchCompanyByName.png in Resources */,
+				A06A200E1591C00A00F1C1F5 /* search128x128.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
