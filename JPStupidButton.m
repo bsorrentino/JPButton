@@ -32,6 +32,7 @@
 @synthesize cornerRadius;
 @synthesize buttonMode;
 @synthesize isSelected;
+@synthesize displayShadow;
 
 @synthesize tickness;
 
@@ -135,6 +136,7 @@
     state = 0;
     cornerRadius = 10.0;
     tickness = JPStupidButtonTicknessThin;
+    displayShadow = YES;
     
 }
 
@@ -161,6 +163,8 @@
         //[NSException raise:NSInternalInconsistencyException format:@"layers already initialized!"];
 
     }
+    
+    
     CGFloat base_bound_f = 0.10f;
     CGFloat move_point_f = 0.10f;
     
@@ -176,12 +180,17 @@
     self.layer.masksToBounds = NO;
     
     baseLayer = [CALayer layer];
+
+    if (displayShadow ) {
+        // SHADOW SETTINGS
+        baseLayer.shadowOffset = CGSizeMake(-0.20f, 5.0f);
+        baseLayer.shadowOpacity = 0.5f;
+        baseLayer.shadowColor = [UIColor blackColor].CGColor;
+        baseLayer.shadowRadius = 2.0f;
+    }
     
     baseLayer.cornerRadius = self.cornerRadius;
-    baseLayer.shadowOffset = CGSizeMake(0.0f, 2.0f);
-    baseLayer.shadowOpacity = 1.5f;
-    baseLayer.shadowColor = [UIColor blackColor].CGColor;
-    baseLayer.shadowRadius = 2.5f;
+    
     baseLayer.anchorPoint = CGPointMake(0.5f, 0.5f);
     baseLayer.position    = move_point;
     

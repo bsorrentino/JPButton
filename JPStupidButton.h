@@ -52,6 +52,7 @@ typedef enum {
 @property JPStupidButtonMode buttonMode;
 
 @property (assign, readonly ) BOOL isSelected;
+@property (assign ) BOOL displayShadow;
 
 - (void)setupLayers;
 
